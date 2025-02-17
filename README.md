@@ -1,0 +1,1 @@
+(Aug 2022) While tutoring my 8 year old brother, I thought it would be fun to automate the process of giving him math problems to solve. I created this app which gives him addition, subtraction, division, and multiplication problems to work on, and he now seems to be more keen on practising.
