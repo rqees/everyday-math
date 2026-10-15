@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+
+\newtheorem*{claim}{Claim}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+\title{Q2: The Convex Hull of a Finite Set Is Compact}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Problem}
+
+Fix $k, n \in \N^{+}$. Let $S = \{p_1, \dots, p_k\}$ be a finite set of points of $\R^n$.
+Define the convex hull of $S$ to be the set
+\[
+  C = \left\{ \lambda_1 p_1 + \dots + \lambda_k p_k : \lambda_1 \ge 0, \dots, \lambda_k \ge 0,\ \lambda_1 + \dots + \lambda_k = 1 \right\} \subseteq \R^n .
+\]
+Prove that $C$ is compact using topological properties of continuity.
+
+\section*{Strategy}
+
+Write $C$ as the image of a compact set under a continuous map:
+\begin{enumerate}
+  \item Define the standard simplex $\Delta \subseteq \R^k$ of admissible coefficient vectors.
+  \item Define a continuous map $f \colon \R^k \to \R^n$ with $f(\Delta) = C$.
+  \item Show $\Delta$ is compact (closed via preimages of closed sets, bounded, then Heine--Borel).
+  \item Conclude, since the continuous image of a compact set is compact.
+\end{enumerate}
+
+\section*{Solution}
+
+\paragraph{Step 1: The simplex and the map.}
+Let
+\[
+  \Delta = \left\{ \lambda = (\lambda_1, \dots, \lambda_k) \in \R^k : \lambda_i \ge 0 \text{ for all } i,\ \sum_{i=1}^k \lambda_i = 1 \right\},
+\]
+and define $f \colon \R^k \to \R^n$ by
+\[
+  f(\lambda) = \sum_{i=1}^k \lambda_i p_i .
+\]
+By the definition of $C$, we have exactly $C = f(\Delta)$.
+
+\paragraph{Step 2: $f$ is continuous.}
+Let $M = \max_{1 \le i \le k} \|p_i\|$. For $\lambda, \mu \in \R^k$, by the triangle inequality and
+Cauchy--Schwarz,
+\[
+  \|f(\lambda) - f(\mu)\|
+  = \left\| \sum_{i=1}^k (\lambda_i - \mu_i) p_i \right\|
+  \le \sum_{i=1}^k |\lambda_i - \mu_i| \, \|p_i\|
+  \le M \sum_{i=1}^k |\lambda_i - \mu_i|
+  \le M \sqrt{k}\, \|\lambda - \mu\| .
+\]
+So $f$ is Lipschitz, hence continuous. (Equivalently: $f$ is linear, and every linear map
+$\R^k \to \R^n$ is continuous.)
+
+\paragraph{Step 3: $\Delta$ is closed.}
+For each $i$, the coordinate projection $\pi_i \colon \R^k \to \R$, $\pi_i(\lambda) = \lambda_i$,
+is continuous, since $|\pi_i(\lambda) - \pi_i(\mu)| = |\lambda_i - \mu_i| \le \|\lambda - \mu\|$.
+The sum map $s \colon \R^k \to \R$, $s(\lambda) = \sum_{i=1}^k \lambda_i = \sum_{i=1}^k \pi_i(\lambda)$,
+is a finite sum of continuous functions, hence continuous. Therefore
+\[
+  \Delta = \left( \bigcap_{i=1}^k \pi_i^{-1}\big([0, \infty)\big) \right) \cap s^{-1}\big(\{1\}\big).
+\]
+Since $[0, \infty)$ and $\{1\}$ are closed in $\R$, and the preimage of a closed set under a
+continuous map is closed, each set in this intersection is closed in $\R^k$. An intersection of
+closed sets is closed, so $\Delta$ is closed.
+
+\paragraph{Step 4: $\Delta$ is bounded.}
+If $\lambda \in \Delta$, then each $\lambda_i \ge 0$ and $\lambda_i \le \sum_{j=1}^k \lambda_j = 1$,
+so $0 \le \lambda_i \le 1$. Hence $\Delta \subseteq [0,1]^k$ and
+\[
+  \|\lambda\| = \left( \sum_{i=1}^k \lambda_i^2 \right)^{1/2} \le \sqrt{k} \quad \text{for all } \lambda \in \Delta .
+\]
+So $\Delta$ is bounded.
+
+\paragraph{Step 5: $\Delta$ is compact.}
+By the Heine--Borel theorem, a subset of $\R^k$ is compact if and only if it is closed and
+bounded. By Steps 3 and 4, $\Delta$ is compact. (It is also nonempty: $(1, 0, \dots, 0) \in \Delta$.)
+
+\paragraph{Step 6: The continuous image of a compact set is compact.}
+\begin{lemma}
+  If $g \colon X \to Y$ is continuous and $K \subseteq X$ is compact, then $g(K)$ is compact.
+\end{lemma}
+\begin{proof}
+  Let $\{V_\alpha\}_{\alpha \in A}$ be an open cover of $g(K)$ in $Y$. By continuity, each
+  $g^{-1}(V_\alpha)$ is open in $X$, and since every $x \in K$ has $g(x) \in V_\alpha$ for some
+  $\alpha$, the family $\{g^{-1}(V_\alpha)\}_{\alpha \in A}$ is an open cover of $K$. By
+  compactness of $K$, there are $\alpha_1, \dots, \alpha_m$ with
+  $K \subseteq \bigcup_{j=1}^m g^{-1}(V_{\alpha_j})$. Applying $g$,
+  \[
+    g(K) \subseteq \bigcup_{j=1}^m g\big(g^{-1}(V_{\alpha_j})\big) \subseteq \bigcup_{j=1}^m V_{\alpha_j},
+  \]
+  a finite subcover. Hence $g(K)$ is compact.
+\end{proof}
+
+\paragraph{Conclusion.}
+By Step 2, $f$ is continuous; by Step 5, $\Delta$ is compact. Applying the Lemma with
+$g = f$ and $K = \Delta$,
+\[
+  C = f(\Delta)
+\]
+is compact. \qed
+
+\end{document}
