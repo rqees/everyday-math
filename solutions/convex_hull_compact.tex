@@ -47,20 +47,24 @@ and define $f \colon \R^k \to \R^n$ by
 By the definition of $C$, we have exactly $C = f(\Delta)$.
 
 \paragraph{Step 2: $f$ is continuous.}
-Let $M = \max_{1 \le i \le k} \|p_i\|$. For $\lambda, \mu \in \R^k$, by the triangle inequality and
-Cauchy--Schwarz,
+Let $M = \max_{1 \le i \le k} \|p_i\|$. For each $i$,
+\[
+  |\lambda_i - \mu_i| = \left( (\lambda_i - \mu_i)^2 \right)^{1/2}
+  \le \left( \sum_{j=1}^k (\lambda_j - \mu_j)^2 \right)^{1/2} = \|\lambda - \mu\| .
+\]
+So for $\lambda, \mu \in \R^k$, by the triangle inequality,
 \[
   \|f(\lambda) - f(\mu)\|
   = \left\| \sum_{i=1}^k (\lambda_i - \mu_i) p_i \right\|
   \le \sum_{i=1}^k |\lambda_i - \mu_i| \, \|p_i\|
-  \le M \sum_{i=1}^k |\lambda_i - \mu_i|
-  \le M \sqrt{k}\, \|\lambda - \mu\| .
+  \le \sum_{i=1}^k M \|\lambda - \mu\|
+  = kM\, \|\lambda - \mu\| .
 \]
-Now fix $\mu \in \R^k$ and $\varepsilon > 0$, and set $\delta = \dfrac{\varepsilon}{M\sqrt{k} + 1} > 0$.
+Now fix $\mu \in \R^k$ and $\varepsilon > 0$, and set $\delta = \dfrac{\varepsilon}{kM + 1} > 0$.
 If $\|\lambda - \mu\| < \delta$, then
 \[
-  \|f(\lambda) - f(\mu)\| \le M\sqrt{k}\, \|\lambda - \mu\| < M\sqrt{k}\, \delta
-  = \frac{M\sqrt{k}}{M\sqrt{k} + 1}\, \varepsilon \le \varepsilon .
+  \|f(\lambda) - f(\mu)\| \le kM\, \|\lambda - \mu\| < kM\, \delta
+  = \frac{kM}{kM + 1}\, \varepsilon \le \varepsilon .
 \]
 So $f$ is continuous at every $\mu \in \R^k$, i.e.\ $f$ is continuous.
 (The $+1$ in the denominator only ensures $\delta$ is defined when $M = 0$.)
