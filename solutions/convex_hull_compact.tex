@@ -29,8 +29,8 @@ Write $C$ as the image of a compact set under a continuous map:
 \begin{enumerate}
   \item Define the standard simplex $\Delta \subseteq \R^k$ of admissible coefficient vectors.
   \item Define a continuous map $f \colon \R^k \to \R^n$ with $f(\Delta) = C$.
-  \item Show $\Delta$ is compact (closed via preimages of closed sets, bounded, then Heine--Borel).
-  \item Conclude, since the continuous image of a compact set is compact.
+  \item Show $\Delta$ is compact (closed via preimages of closed sets, and bounded).
+  \item Conclude, since the continuous image of a compact set is compact (proved with sequences).
 \end{enumerate}
 
 \section*{Solution}
@@ -91,23 +91,26 @@ so $0 \le \lambda_i \le 1$. Hence $\Delta \subseteq [0,1]^k$ and
 So $\Delta$ is bounded.
 
 \paragraph{Step 5: $\Delta$ is compact.}
-By the Heine--Borel theorem, a subset of $\R^k$ is compact if and only if it is closed and
-bounded. By Steps 3 and 4, $\Delta$ is compact. (It is also nonempty: $(1, 0, \dots, 0) \in \Delta$.)
+Recall that $K \subseteq \R^m$ is compact if every sequence in $K$ has a subsequence converging
+to a point of $K$, and that this is equivalent to $K$ being closed and bounded. By Steps 3 and 4,
+$\Delta$ is closed and bounded, so $\Delta$ is compact.
 
 \paragraph{Step 6: The continuous image of a compact set is compact.}
 \begin{lemma}
-  If $g \colon X \to Y$ is continuous and $K \subseteq X$ is compact, then $g(K)$ is compact.
+  If $g \colon \R^k \to \R^n$ is continuous and $K \subseteq \R^k$ is compact, then $g(K)$ is compact.
 \end{lemma}
 \begin{proof}
-  Let $\{V_\alpha\}_{\alpha \in A}$ be an open cover of $g(K)$ in $Y$. By continuity, each
-  $g^{-1}(V_\alpha)$ is open in $X$, and since every $x \in K$ has $g(x) \in V_\alpha$ for some
-  $\alpha$, the family $\{g^{-1}(V_\alpha)\}_{\alpha \in A}$ is an open cover of $K$. By
-  compactness of $K$, there are $\alpha_1, \dots, \alpha_m$ with
-  $K \subseteq \bigcup_{j=1}^m g^{-1}(V_{\alpha_j})$. Applying $g$,
-  \[
-    g(K) \subseteq \bigcup_{j=1}^m g\big(g^{-1}(V_{\alpha_j})\big) \subseteq \bigcup_{j=1}^m V_{\alpha_j},
-  \]
-  a finite subcover. Hence $g(K)$ is compact.
+  Let $(y_m)_{m \ge 1}$ be a sequence in $g(K)$. For each $m$ choose $x_m \in K$ with
+  $g(x_m) = y_m$. Since $K$ is compact, there is a subsequence $(x_{m_j})_{j \ge 1}$ and a point
+  $x \in K$ with $x_{m_j} \to x$.
+
+  We claim $y_{m_j} = g(x_{m_j}) \to g(x)$. Let $\varepsilon > 0$. By continuity of $g$ at $x$,
+  there is $\delta > 0$ such that $\|z - x\| < \delta$ implies $\|g(z) - g(x)\| < \varepsilon$.
+  Since $x_{m_j} \to x$, there is $J$ such that $\|x_{m_j} - x\| < \delta$ for all $j \ge J$.
+  Hence $\|g(x_{m_j}) - g(x)\| < \varepsilon$ for all $j \ge J$, proving the claim.
+
+  So $(y_m)$ has a subsequence converging to $g(x)$, and $g(x) \in g(K)$ because $x \in K$.
+  Therefore $g(K)$ is compact.
 \end{proof}
 
 \paragraph{Conclusion.}
